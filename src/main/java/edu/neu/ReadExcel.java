@@ -6,9 +6,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,33 +140,72 @@ public class ReadExcel {
     }
 
 
-    public static void main(String args[]) throws FileNotFoundException {
-        ReadExcel excel = new ReadExcel();
-//        FileInputStream file = new FileInputStream(new File("/home/ravi/Downloads/Dataset_new.xlsx"));
-        FileInputStream file = new FileInputStream(new File("Dataset.xlsx"));
-        excel.readExcel(file);
+    public static void main(String args[]) throws IOException {
+        boolean repeat = false;
+        int number1 = 0;
+        int number2 = 0;
+        HashMap<Integer,String> teams = new HashMap<>();
 
-        System.out.println("##########################################");
-        System.out.println("Home Team, Away Team : Result(home team)");
-        System.out.println("###########################################");
+        do{
+            System.out.println("EPL fan? Check which team wins and their Rankings");
 
-        for(String key : map.keySet()){
-            System.out.println(key+" : "+map.get(key));
-        }
+            teams.put(1,"Man United");
+            teams.put(2,"Bournemouth");
+            teams.put(3,"Fulham");
+            teams.put(4,"Huddersfield");
+            teams.put(5,"Newcastle");
+            teams.put(6,"Watford");
+            teams.put(7,"Wolves");
+            teams.put(8,"Arsenal");
+            teams.put(9,"Liverpool");
+            teams.put(10,"Southampton");
+            teams.put(11,"Cardiff");
+            teams.put(12,"Chelsea");
+            teams.put(13,"Everton");
+            teams.put(14,"Leicester");
+            teams.put(15,"Tottenham");
+            teams.put(16,"West Ham");
+            teams.put(17,"Brighton");
+            teams.put(18,"Burnley");
+            teams.put(19,"Man City");
+            teams.put(20,"Crystal Palace");
 
-//        for(int i=0; i<lhsArray.length; i++){
-//            for(int j=0; j<lhsArray[i].length; j++){
-//                System.out.print(String.valueOf(lhsArray[i][j])+" ");
-//            }
-//            System.out.println("");
-//        }
-//
-//        for(int i=0; i<rhsArray.length; i++){
-//            System.out.print(String.valueOf(rhsArray[i])+" ");
-//        }
+            for(Map.Entry mappings: teams.entrySet()){
+                System.out.println("Enter --"+ mappings.getKey() + " for -- " +mappings.getValue());
+            }
 
-        new RankingSystem(lhsArray, rhsArray,teamNames);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            repeat = false;
 
-        proability("Burnley", "Fulham", map);
+            String input = reader.readLine();
+            String[] str = input.trim().split("\\s+");
+            number1 = Integer.parseInt(str[0].trim());
+            number2 = Integer.parseInt(str[1].trim());
+
+
+            if(number1 == 0 || number2 ==0 || !teams.containsKey(number1) || !teams.containsKey(number2)){
+                System.out.println("Kindly enter valid number separated by space");
+                repeat = true;
+            }
+        }while(repeat);
+
+            ReadExcel excel = new ReadExcel();
+            FileInputStream file = new FileInputStream(new File("Dataset.xlsx"));
+            excel.readExcel(file);
+
+            System.out.println("##########################################");
+            System.out.println("Home Team, Away Team : Result(home team)");
+            System.out.println("###########################################");
+
+            for(String key : map.keySet()){
+                System.out.println(key+" : "+map.get(key));
+            }
+
+            new RankingSystem(lhsArray, rhsArray,teamNames);
+
+            String team1 = teams.get(number1);
+            String team2 = teams.get(number2);
+
+            proability(team1, team2, map);
     }
 }
