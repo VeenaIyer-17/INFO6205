@@ -15,7 +15,7 @@ public class RankingSystem {
            Matrix ans = lhs.solve(rhs);
 
            Map<String, Double> teamRanks = new HashMap<>();
-           for(int i=1;i<teamNames.length-1;i++) {
+           for(int i=0;i<teamNames.length;i++) {
                if (teamNames[i] != null)
                    teamRanks.put(teamNames[i], ans.get(i - 1, 0));
            }
@@ -43,7 +43,12 @@ public class RankingSystem {
 //
 //           Set<Map.Entry<String, Double>> sortedTeamRanks = sortedByValue.entrySet();
 //
+           System.out.println("");
+           System.out.println("####################################");
            System.out.println("EPL Team Rankings are as below");
+           System.out.println("####################################");
+
+
            for(Map.Entry<String,Double> sorted : sortedByValue.entrySet()){
                System.out.println(sorted.getKey() + " = " + sorted.getValue());
            }
