@@ -20,14 +20,14 @@ public class ReadExcel {
     private  static String[] teamNames;
     public static Map<String,String> map = new HashMap<>();
 
-    public void readExcel(FileInputStream file ){
+    public void readExcel(FileInputStream file , int num){
         try{
 
             //Create Workbook instance holding reference to .xlsx file
             XSSFWorkbook workbook = new XSSFWorkbook(file);
      
              //Get first/desired sheet from the workbook
-             XSSFSheet sheet = workbook.getSheetAt(0);
+             XSSFSheet sheet = workbook.getSheetAt(num-1);
              
              int numRows = sheet.getLastRowNum()+1;
              int numCols = sheet.getRow(0).getLastCellNum();
@@ -142,39 +142,77 @@ public class ReadExcel {
 
     public static void main(String args[]) throws IOException {
         boolean repeat = false;
+        boolean firstRepeat = false;
         int number1 = 0;
         int number2 = 0;
         HashMap<Integer,String> teams = new HashMap<>();
+        int num=0;
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        do {
+            System.out.println("We have two datasets - the 2018-2019 dataID-19\n Which seasons ranking would you like to view?\n Enter 1 for 2018-2019 and 2 for COVID-19 dataset");
+            firstRepeat = false;
+            String in = reader.readLine();
+            if (in == null || in.isEmpty() || in.equalsIgnoreCase("0")) {
+                firstRepeat = true;
+            } else if (in.equalsIgnoreCase("1") || in.equalsIgnoreCase("2"))
+                num = Integer.parseInt(in);
+        }while(firstRepeat==true);
+
 
         do{
             System.out.println("EPL fan? Check which team wins and their Rankings");
 
-            teams.put(1,"Man United");
-            teams.put(2,"Bournemouth");
-            teams.put(3,"Fulham");
-            teams.put(4,"Huddersfield");
-            teams.put(5,"Newcastle");
-            teams.put(6,"Watford");
-            teams.put(7,"Wolves");
-            teams.put(8,"Arsenal");
-            teams.put(9,"Liverpool");
-            teams.put(10,"Southampton");
-            teams.put(11,"Cardiff");
-            teams.put(12,"Chelsea");
-            teams.put(13,"Everton");
-            teams.put(14,"Leicester");
-            teams.put(15,"Tottenham");
-            teams.put(16,"West Ham");
-            teams.put(17,"Brighton");
-            teams.put(18,"Burnley");
-            teams.put(19,"Man City");
-            teams.put(20,"Crystal Palace");
+            if(num ==1){
+
+                teams.put(1,"Arsenal");
+                teams.put(2,"Bournemouth");
+                teams.put(3,"Brighton & Hove Albion");
+                teams.put(4,"Burnley");
+                teams.put(5,"Cardiff City");
+                teams.put(6,"Chelsea");
+                teams.put(7,"Crystal Palace");
+                teams.put(8,"Everton");
+                teams.put(9,"Fulham");
+                teams.put(10,"Huddersfield Town");
+                teams.put(11,"Leicester City");
+                teams.put(12,"Liverpool");
+                teams.put(13,"Manchester City");
+                teams.put(14,"Manchester United");
+                teams.put(15,"Newcastle United");
+                teams.put(16,"Southampton");
+                teams.put(17,"Tottenham Hotspur");
+                teams.put(18,"Watford");
+                teams.put(19,"West Ham United");
+                teams.put(20,"Wolverhampton Wanderers");
+
+
+            }else if(num==2){
+                    teams.put(1,"Arsenal");
+                    teams.put(2,"Aston Villa");
+                    teams.put(3,"Bournemouth");
+                    teams.put(4,"Brighton & Hove Albion");
+                    teams.put(5,"Burnley");
+                    teams.put(6,"Chelsea");
+                    teams.put(7,"Crystal Palace");
+                    teams.put(8,"Everton");
+                    teams.put(9,"Leicester City");
+                    teams.put(10,"Liverpool");
+                    teams.put(11,"Manchester City");
+                    teams.put(12,"Manchester United");
+                    teams.put(13,"Newcastle United");
+                    teams.put(14,"Norwich City");
+                    teams.put(15,"Sheffield United");
+                    teams.put(16,"Southampton");
+                    teams.put(17,"Tottenham Hotspur");
+                    teams.put(18,"Watford");
+                    teams.put(19,"West Ham United");
+                    teams.put(20,"Wolverhampton Wanderers");
+            }
 
             for(Map.Entry mappings: teams.entrySet()){
                 System.out.println("Enter --"+ mappings.getKey() + " for -- " +mappings.getValue());
             }
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             repeat = false;
 
             String input = reader.readLine();
@@ -187,11 +225,12 @@ public class ReadExcel {
                 System.out.println("Kindly enter valid number separated by space");
                 repeat = true;
             }
+
         }while(repeat);
 
             ReadExcel excel = new ReadExcel();
             FileInputStream file = new FileInputStream(new File("Dataset.xlsx"));
-            excel.readExcel(file);
+            excel.readExcel(file,num);
 
             System.out.println("##########################################");
             System.out.println("Home Team, Away Team : Result(home team)");
