@@ -132,6 +132,11 @@ public class ReadExcel {
             team2Score += .5;
         }
 
+        if(team1Score == 0.5 && team2Score ==0.5){
+            team1Score = 1.0;
+            team2Score = 1.0;
+        }
+
         double probabilityOfTeam1 = team1Score/2;
         double probabilityOfTeam2 = team2Score/2;
 
@@ -172,7 +177,7 @@ public class ReadExcel {
 
             do{
                 if(num ==1){
-                    System.out.println("EPL fan? Check which team wins and their Rankings");
+                    System.out.println("EPL fan? Check which team wins and their Rankings, pass the numbers with space, eg: for Arsernal vs Chelsea pass 1 6");
                     teams.put(1,"Arsenal");
                     teams.put(2,"Bournemouth");
                     teams.put(3,"Brighton & Hove Albion");
@@ -195,7 +200,7 @@ public class ReadExcel {
                     teams.put(20,"Wolverhampton Wanderers");
 
                 }else if(num==2){
-                    System.out.println("EPL fan? Check which team wins and their Rankings");
+                    System.out.println("EPL fan? Check which team wins and their Rankings, pass the numbers with space, eg: for Arsernal vs Chelsea pass 1 6");
                     teams.put(1,"Arsenal");
                     teams.put(2,"Aston Villa");
                     teams.put(3,"Bournemouth");
@@ -266,7 +271,7 @@ public class ReadExcel {
             proability(team1, team2, map);
 
         }catch (Exception e){
-            System.out.println("Something went wrong");
+            System.out.println("Re run and please do provide space between the numbers of the respective teams.");
         }
 
     }
