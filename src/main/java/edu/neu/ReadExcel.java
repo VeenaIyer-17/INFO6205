@@ -51,7 +51,7 @@ public class ReadExcel {
 
                      String away = sheet.getRow(0).getCell(j+1).getStringCellValue();
 
-                     String homeVsAway = home+","+away;
+                     String homeVsAway = home.trim()+","+away.trim();
                      homeVsAway.trim();
 
                      switch (cell.getCellType()) {
@@ -70,6 +70,8 @@ public class ReadExcel {
                              }else if (cell.getStringCellValue().equalsIgnoreCase("D")) {
                                  lhsArray[i][j] = -1;
                                  draw++;
+                             }else if (cell.getStringCellValue().equalsIgnoreCase("na")) {
+                                 lhsArray[i][j] = 0;
                              }else{
                                  continue;
                              }
@@ -113,12 +115,19 @@ public class ReadExcel {
         else if(s1.equalsIgnoreCase("L")){
             team2Score += 1;
         }
+        else if(s1.equalsIgnoreCase("na")){
+            team1Score += .5;
+            team2Score += .5;
+        }
 
         if(s2.equalsIgnoreCase("W")){
             team2Score += 1;
         }
         else if(s2.equalsIgnoreCase("L")){
             team1Score += 1;
+        }else if(s2.equalsIgnoreCase("na")){
+            team1Score += .5;
+            team2Score += .5;
         }
 
         if(s1.equalsIgnoreCase("D") || s2.equalsIgnoreCase("D")){
@@ -229,8 +238,9 @@ public class ReadExcel {
         }while(repeat);
 
             ReadExcel excel = new ReadExcel();
-            FileInputStream file = new FileInputStream(new File("Dataset.xlsx"));
-            excel.readExcel(file,num);
+//            FileInputStream file = new FileInputStream(new File("Dataset.xlsx"));
+            FileInputStream file = new FileInputStream(new File("/home/ravi/Downloads/Dataset_new.xlsx"));
+            excel.readExcel(file, num);
 
             System.out.println("##########################################");
             System.out.println("Home Team, Away Team : Result(home team)");
