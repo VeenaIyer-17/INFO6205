@@ -1,15 +1,12 @@
 package edu.neu;
 
-import Jama.Matrix;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -149,53 +146,56 @@ public class ReadExcel {
     }
 
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[])  {
         boolean repeat = false;
         boolean firstRepeat = false;
         int number1 = 0;
         int number2 = 0;
         HashMap<Integer,String> teams = new HashMap<>();
         int num=0;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        do {
-            System.out.println("We have two datasets - the 2018-2019 dataID-19\n Which seasons ranking would you like to view?\n Enter 1 for 2018-2019 and 2 for COVID-19 dataset");
-            firstRepeat = false;
-            String in = reader.readLine();
-            if (in == null || in.isEmpty() || in.equalsIgnoreCase("0")) {
-                firstRepeat = true;
-            } else if (in.equalsIgnoreCase("1") || in.equalsIgnoreCase("2"))
-                num = Integer.parseInt(in);
-        }while(firstRepeat==true);
+
+        try{
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            do {
+                System.out.println("We have two datasets - the 2018-2019 dataID-19\n Which seasons ranking would you like to view?\n Enter 1 for 2018-2019 and 2 for COVID-19 dataset");
+                firstRepeat = false;
+                String in = reader.readLine();
+                if (in == null || in.isEmpty() || in.matches("\\s+") || in.equalsIgnoreCase("0")) {
+                    firstRepeat = true;
+                }else if (in.equalsIgnoreCase("1") || in.equalsIgnoreCase("2"))
+                    num = Integer.parseInt(in);
+                else
+                    firstRepeat = true;
+            }while(firstRepeat==true);
 
 
-        do{
-            System.out.println("EPL fan? Check which team wins and their Rankings");
+            do{
+                if(num ==1){
+                    System.out.println("EPL fan? Check which team wins and their Rankings");
+                    teams.put(1,"Arsenal");
+                    teams.put(2,"Bournemouth");
+                    teams.put(3,"Brighton & Hove Albion");
+                    teams.put(4,"Burnley");
+                    teams.put(5,"Cardiff City");
+                    teams.put(6,"Chelsea");
+                    teams.put(7,"Crystal Palace");
+                    teams.put(8,"Everton");
+                    teams.put(9,"Fulham");
+                    teams.put(10,"Huddersfield Town");
+                    teams.put(11,"Leicester City");
+                    teams.put(12,"Liverpool");
+                    teams.put(13,"Manchester City");
+                    teams.put(14,"Manchester United");
+                    teams.put(15,"Newcastle United");
+                    teams.put(16,"Southampton");
+                    teams.put(17,"Tottenham Hotspur");
+                    teams.put(18,"Watford");
+                    teams.put(19,"West Ham United");
+                    teams.put(20,"Wolverhampton Wanderers");
 
-            if(num ==1){
-
-                teams.put(1,"Arsenal");
-                teams.put(2,"Bournemouth");
-                teams.put(3,"Brighton & Hove Albion");
-                teams.put(4,"Burnley");
-                teams.put(5,"Cardiff City");
-                teams.put(6,"Chelsea");
-                teams.put(7,"Crystal Palace");
-                teams.put(8,"Everton");
-                teams.put(9,"Fulham");
-                teams.put(10,"Huddersfield Town");
-                teams.put(11,"Leicester City");
-                teams.put(12,"Liverpool");
-                teams.put(13,"Manchester City");
-                teams.put(14,"Manchester United");
-                teams.put(15,"Newcastle United");
-                teams.put(16,"Southampton");
-                teams.put(17,"Tottenham Hotspur");
-                teams.put(18,"Watford");
-                teams.put(19,"West Ham United");
-                teams.put(20,"Wolverhampton Wanderers");
-
-
-            }else if(num==2){
+                }else if(num==2){
+                    System.out.println("EPL fan? Check which team wins and their Rankings");
                     teams.put(1,"Arsenal");
                     teams.put(2,"Aston Villa");
                     teams.put(3,"Bournemouth");
@@ -216,30 +216,38 @@ public class ReadExcel {
                     teams.put(18,"Watford");
                     teams.put(19,"West Ham United");
                     teams.put(20,"Wolverhampton Wanderers");
-            }
+                }else{
+                    System.out.println("Enter a valid number- 1 or 2");
+                }
 
-            for(Map.Entry mappings: teams.entrySet()){
-                System.out.println("Enter --"+ mappings.getKey() + " for -- " +mappings.getValue());
-            }
+                for(Map.Entry mappings: teams.entrySet()){
+                    System.out.println("Enter --"+ mappings.getKey() + " for -- " +mappings.getValue());
+                }
 
-            repeat = false;
+                repeat = false;
 
-            String input = reader.readLine();
-            String[] str = input.trim().split("\\s+");
-            number1 = Integer.parseInt(str[0].trim());
-            number2 = Integer.parseInt(str[1].trim());
+                String input = reader.readLine();
+                if(input.isEmpty() || input.matches("\\s+"))
+                    repeat = true;
+
+                String[] str = input.trim().split("\\s+");
+                if(str[0].matches("\\s+") || str[1].matches("\\s") || str[0].isEmpty() || str[1].isEmpty())
+                    repeat = true;
 
 
-            if(number1 == 0 || number2 ==0 || !teams.containsKey(number1) || !teams.containsKey(number2)){
-                System.out.println("Kindly enter valid number separated by space");
-                repeat = true;
-            }
+                number1 = Integer.parseInt(str[0].trim());
+                number2 = Integer.parseInt(str[1].trim());
 
-        }while(repeat);
+
+                if(number1 == 0 || number2 ==0 || !teams.containsKey(number1) || !teams.containsKey(number2)){
+                    System.out.println("Kindly enter valid number separated by space");
+                    repeat = true;
+                }
+
+            }while(repeat);
 
             ReadExcel excel = new ReadExcel();
-//            FileInputStream file = new FileInputStream(new File("Dataset.xlsx"));
-            FileInputStream file = new FileInputStream(new File("/home/ravi/Downloads/Dataset_new.xlsx"));
+            FileInputStream file = new FileInputStream(new File("Dataset_new1.xlsx"));
             excel.readExcel(file, num);
 
             System.out.println("##########################################");
@@ -256,5 +264,10 @@ public class ReadExcel {
             String team2 = teams.get(number2);
 
             proability(team1, team2, map);
+
+        }catch (Exception e){
+            System.out.println("Something went wrong");
+        }
+
     }
 }
