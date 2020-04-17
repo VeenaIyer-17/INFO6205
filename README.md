@@ -17,19 +17,18 @@ The Ranking System is based on the Wins, Loss and draws between each team. Proba
 teams given as input is also calculated.
 
 ## Run Instructions
-ReadExcel file is the entry point for execution.
-* User will be displayed the teams with a pre defined number attached to each team
-* User will input the number for the two teams they wish to check Win probability
+* Run the program from ReadExcel file which is the entry point for execution.
+* User will be given a choice of dataset viz 2018-19 or the current season. Enter 1 or 2 as stated
+    * Once data sheet is selected(say 1 is written and press enter), 
+respective teams of the season will be displayed and 
+a number is associated to each team in order to minimize human error. Example
+    * Type 12 2(separated by space) and press enter --> gives win probability of team 12 and team 2
 * If a valid number from the list is selected and the two numbers are separated by space:
 * Output will be displayed which will contain the below -
     * List of home and away team with their wins and losses
     * Rankings of all these teams
-    * Win probability
- * The dataset being used if from the playoffs of 2018-2019.
- * To consider the COVID-19 scenario mentioned we have one more excel called coviddataset.xlsx
- * Replacing this file with the earlier dataset will show the Rankings for the teams presently.
- * Replacement can be done in the ReadExcel file at line 193. Screenshot of the data and ranking is
- attached in the Report
+    * And probability
+
  
 ## Output Verification
 As professor has mentioned - Although Liverpool must end the season at the top of
