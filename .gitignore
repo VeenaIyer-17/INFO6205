@@ -1,0 +1,35 @@
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+
+### VS Code ###
+.vscode/
+
+#war
+.war
+
+#jar
+.jar
+
+#class
+.class
+
+#zip
+.zip
+
+#maven
+log/
+
+target/
+*.project
+*.classpath
+*.settings
+
+.classpath
+.project
+.settings
+
+
